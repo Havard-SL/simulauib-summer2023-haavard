@@ -1,0 +1,224 @@
+\begin{definition}
+    Let \( Q \) be a set with a binary operation \( \_ *_Q \_ \) with the following properties:
+    \begin{enumerate}
+        \item \( \_ *_Q \_ \) is closed.
+        \item For every \( a \in Q \), the map \( x \mapsto a *_Q x \) is a bijection.
+        \item For every \( a \in Q \), the map \( x \mapsto x *_Q a \) is a bijection.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Item number 2 and 3 in the requirements of a quasigroup are called the ``latin square property'' because these rules are equivalent to that the group operation table is a latin square, as shown in \autoref{thm:latin-square-property}.
+\end{remark}
+
+\begin{definition}
+    Let \( \Quas(n) \) denote the set of all quasigroups over \( [n] \).
+\end{definition}
+
+\begin{theorem} \label{thm:associative-quasigroup-group}
+    An associative quasigroup is a group.
+\end{theorem}
+For a proof, see \href{https://www.planetmath.org/anassociativequasigroupisagroup}{anassociativequasigroupisagroup}.
+
+\begin{theorem} \label{thm:latin-square-property}
+    Any quasigroup in \( \Quas(n) \) can be represented as an \( n \times n \) latin square by their group operation table.
+\end{theorem}
+\begin{proof}
+    First show \( \Quas(n) \to n \times n \) latin squares:
+
+    Assume that the binary operation table is not a latin square. Then there are two cases:
+
+    Case 1: There is a duplicate element in a row, say row \( a \) has element \( x \) occur twice. Once for column \( b \) and another time for a different column \( c \). This implies that \( a * b = x = a * c \). But then the map \( \varphi: x \mapsto a * x \) is not injective, since \( \varphi(b) = \varphi(c) \), but \( b \neq c \).
+
+    Case 2: There is a duplicate element in a column. Then the argument is the same, but using the map \( x \mapsto x * a \) instead.
+
+    Then show \( n \times n \) latin squares \( \to \Quas(n) \):
+
+    Given an \( n \times n \) latin square, look at the binary operation induced by the latin square. It satisfies all the quasigroup properties, and therefore the set \( [n] \) with this binary operation is a quasigroup.
+\end{proof}
+
+\begin{counterexample}
+    A commutative quasigroup is not an abelian group.
+\end{counterexample}
+\begin{proof}
+    Look at the quasigroup given by this group operation table:
+    \[
+        \begin{matrix}
+            2 & 1 & 0 \\
+            1 & 0 & 2 \\
+            0 & 2 & 1
+        \end{matrix}
+    \]
+    But then \( (0 + 0) + 1 = 2 + 1 = 2 \), however \( 0 + (0 + 1) = 0 + 1 = 1 \).
+\end{proof}
+It is also implied by \autoref{counterexample:commutative-loop-abelian}.
+
+\begin{definition} \label{def:loop}
+    A loop is a quasigroup with a (unique) two-sided identity element.
+\end{definition}
+
+\begin{counterexample} \label{counterexample:commutative-loop-abelian}
+    A commutative loop is not an abelian group.
+\end{counterexample}
+\begin{proof}
+    Look at the loop given by the group operation table:
+    \[
+        \begin{matrix}
+            0 & 1 & 2 & 3 & 4 & 5 \\
+            1 & 5 & 4 & 2 & 3 & 0 \\
+            2 & 4 & 5 & 1 & 0 & 3 \\
+            3 & 2 & 1 & 0 & 5 & 4 \\
+            4 & 3 & 0 & 5 & 2 & 1 \\
+            5 & 0 & 3 & 4 & 1 & 2
+        \end{matrix}
+    \]
+    But then \( (1 + 1) + 4 = 5 + 4 = 1 \), however \( 1 + (1 + 4) = 1 + 3 = 2 \).
+\end{proof}
+
+\begin{theorem} \label{thm:quasigroup-conjugacy}
+    Let \( H \in \Quas(n) \) and let \( \phi \in \Sym(n) \).
+
+    Then let \( S = \tuple{[n], *_S} \) be a set with a binary operation where \( *_S \) is given by:
+    \[
+        a *_S b = \phi(\phi^{-1}(a) *_H \phi^{-1}(b)).
+    \]
+    Then \( S \) is a quasigroup.
+\end{theorem}
+\begin{proof}
+    Taking the conjugacy of a quasigroup is the same as permuting the rows and columns of the group operation table by \( \phi \) and then permuting the elements by \( \phi \). And since permuting the rows or permuting the columns of the group operation table still gives a latin square, as well as permuting the elements still keeps the latin square structure, one gets that the resulting group operation table still is a latin square. Therefore, \( S \) is a quasigroup.
+\end{proof}
+
+\begin{definition} \label{def:quasigroup-conjugacy}
+    Let \( \phi \in \Sym(n) \), and let \( Q \in \Quas(n) \).
+
+    Then the \emph{conjugacy of \( Q \) with respect to \( \phi \)} is the quasigroup \( S \) from \autoref{thm:quasigroup-conjugacy}. This \( S \) is denoted as \( \phi(Q) \).
+\end{definition}
+
+\begin{remark}
+    The definition in \autoref{def:quasigroup-conjugacy} reflects the definition for abelian groups in \autoref{def:abelian-conjugacy}, but for quasigroups.
+\end{remark}
+
+\begin{remark}
+    Similar to how it is for abelian groups, \autoref{thm:conjugacy-isomorphism} is also true for quasigroups by a similar proof.
+
+    This implies that one can not gain or lose any significant structure by taking conjugacy. E.g. the conjugacy preserves exactly commutativity, associativity and left/right identity.
+\end{remark}
+
+\begin{theorem} \label{thm:quasi-automorphism-iff-self-conjugate}
+    Let \( \phi \in \Sym(n) \), and let \( Q \in \Quas(n) \).
+
+    Then \( \phi \in \Aut(Q) \iff \phi(Q) = Q \).
+\end{theorem}
+\begin{proof}
+    First look at \( \Rightarrow \).
+
+    Assume \( \phi \in \Aut(Q) \). Then \( \phi(a *_Q b) = \phi(a) *_Q \phi(b) \). Look at \( a *_{\phi(Q)} b = \phi(\phi^{-1}(a) *_Q \phi^{-1}(b)) = \phi(\phi^{-1}(a)) *_Q \phi(\phi^{-1}(b)) = a *_Q b \). So in fact, the group operation table of \( Q \) and \( \phi(Q) \) are identical.
+
+    Secondly, look at \( \Leftarrow \).
+
+    Assume \( \phi(Q) = Q \). Then \( a *_Q b = a *_{\phi(Q)} b \). Look at \( \phi(a) *_Q \phi(b) = \phi(a) *_{\phi(Q)} \phi(b) = \phi(\phi^{-1}(\phi(a)) *_Q \phi^{-1}(\phi(b))) = \phi(a *_Q b) \), which is the definition for \( \phi \in \Aut(Q) \). 
+\end{proof}
+
+\begin{lemma} \label{lemma:isotopy-image}
+    Let \( \alpha, \beta, \gamma \in Sym(n) \), and let \( Q \) be any quasigroup over \( [n] \).
+
+    Then there exist a unique quasigroup, denoted \( (\alpha, \beta, \gamma)(Q) \), such that \( (\alpha, \beta, \gamma) \) is an isotopy from \( Q \) to \( (\alpha, \beta, \gamma)(Q) \).
+\end{lemma}
+\begin{proof}
+    Let \( \tilde{Q} = \tuple{[n], *_{\tilde{Q}}} \). Where the binary operation \( *_{\tilde{Q}} \) is given by:
+    \[
+        a *_{\tilde{Q}} b = \gamma(\alpha^{-1}(a) +_Q \beta^{-1}(b)).
+    \]
+    This binary operation table corresponds to the binary operation table of \( Q \), but where the rows are permuted by \( \alpha \), the columns are permuted by \( \beta \), and the elements are permuted by \( \gamma \). Permuting rows, columns or elements by any permutation still preserves the latin square property, so therefore \( \tilde{Q} \) is still a quasigroup.
+\end{proof}
+
+\begin{definition} \label{def:isotopy-image}
+    Let \( \alpha, \beta, \gamma \in Sym(n) \), and let \( Q \) be any quasigroup over \( [n] \).
+
+    Then the unique quasigroup denoted \( (\alpha, \beta, \gamma)(Q) \) from \autoref{lemma:isotopy-image} is called the \emph{isotopy image of \( Q \) with respect to \( \tuple{\alpha, \beta, \gamma} \)}.
+\end{definition}
+
+\begin{remark}
+    The definition in \autoref{def:isotopy-image} is a more general version of the \autoref{def:quasigroup-conjugacy}, since given a quasigroup \( Q \in \Quas(n) \) and a permutation \( \phi \in \Sym(n) \) the conjugacy of \( Q \) with respect to \( \phi \) is the same as the isotopy image of \( Q \) with respect to \( \tuple{\phi, \phi, \phi} \).
+\end{remark}
+
+\begin{definition}
+    Let \( \phi \in \Sym(n) \).
+    
+    If there exist a \( \lambda \in Aut(Q) \) and \( v \in Q \), such that at least one of the following is true:
+    \begin{itemize}
+        \item \( \phi(\_) = \lambda(\_) \), or
+        \item \( \phi(\_) = \lambda(\_) *_Q v \), or
+        \item \( \phi(\_) = v *_Q \lambda(\_) \).
+    \end{itemize}
+
+    Then \( \phi \in \AAut(Q) \).
+\end{definition}
+\begin{remark}
+    This definition is very similar to the definition for abelian groups shown previously (\autoref{def:abelian-aaut}), but not assuming commutativity or even an identity element.
+\end{remark}
+
+\begin{construction} \label{construction:affine-automorphism-quasigroup}
+    For \( \phi, \pi \in \Sym(n) \).
+
+    Then for any given quasigroup \( Q \in \Quas(n) \) with left identity. One can construct another quasigroup \( \tilde{Q} = (\pi^{-1}, \phi^{-1}, \Id)(Q) \) such that \( \phi \in \AAut(\tilde{Q}) \).
+\end{construction}
+\begin{proof}
+    Let the left identity element of \( Q \) be \( e_L \).
+    
+    Then from the isometry property \( \pi^{-1}(x) *_{\tilde{Q}} \phi^{-1}(y) = Id(x *_Q y) \), one gets: 
+    \[
+        \pi(x) *_Q \phi(y) = Id(\pi(x) *_Q \varphi(y)) = \pi^{-1}(\pi(x)) *_{\tilde{Q}} \varphi^{-1}(\varphi(y)) = x *_{\tilde{Q}} y 
+    \]
+
+    Using \( x *_{\tilde{Q}} y = \pi(x) *_Q \phi(y) \) and taking \( x = \pi^{-1}(e_L) \), one gets: \( \pi^{-1}(e_L) *_{\tilde{Q}} y = e_L *_Q \phi(y) = \phi(y) \). Written another way: \( \phi(y) = \pi^{-1}(e_L) *_Q \Id(y) \), and hence \( \phi(y) \in \AAut(Q) \), since \( \Id \in \Aut(\tilde{Q}) \) and \( \pi^{-1}(e) \in \tilde{Q} \).
+\end{proof}
+
+\begin{remark} \label{remark:construction-right-id}
+    Using the construction in \autoref{construction:affine-automorphism-quasigroup} with \( Q \) as a loop with identity element \( e \) and \( \pi = \Id \), then \( \tilde{Q} \) will have a right identity, namely \( \phi^{-1}(e) \), since \( x *_{\tilde{Q}} \phi^{-1}(e) = \Id(x) *_Q e = x \) for any \( x \in \tilde{Q} \).
+\end{remark}
+
+\begin{lemma} \label{lemma:commutative-quasigroup}
+    Let \( \phi \in Sym(n) \), and let \( Q \in \Quas(n) \) be a commutative quasigroup.
+
+    Then the quasigroup \( \tilde{Q} = (\varphi, \varphi, Id)(Q) \) is also commutative.
+\end{lemma}
+\begin{proof}
+    From the isotopy property \( x *_Q y = \phi^{-1}(x) *_{\tilde{Q}} \phi^{-1}(y) \).
+
+    Therefore one gets \( x *_{\tilde{Q}} y = \phi(x) *_Q \phi(y) = \phi(y) *_Q \phi(x) = y *_{\tilde{Q}} x \). 
+\end{proof}
+
+\begin{corollary} \label{corollary:construction-symmetric}
+    Let \( \phi \in \Sym(n) \), and let \( Q \) be a commutative loop.
+
+    Then using the construction in \autoref{construction:affine-automorphism-quasigroup}, but setting \( \pi = \phi \), one gets that \( \tilde{Q} = \tuple{\phi^{-1}, \phi^{-1}, \Id}(Q) \) is also commutative.
+\end{corollary}
+\begin{proof}
+    From \autoref{lemma:commutative-quasigroup}, one gets that \( \tilde{Q} \) is commutative.
+\end{proof}
+
+\begin{theorem} \label{thm:left-identity-killed-construction}
+    Let \( Q \in \Quas(n) \) with left identity, and let \( \phi \in \Sym(n) \setminus \{\Id\} \) have a fixed point.
+
+    Then for any \( \pi \in \Sym(n) \), every isotopy image (\autoref{def:isotopy-image}) of \( (\pi, \phi, \Id) \) of \( Q \) does \emph{not} have a left (right) identity. In particular, it is \emph{not} a loop.
+\end{theorem}
+\begin{proof}
+    Let \( \tilde{Q} = (\pi, \phi, \Id)(Q) \) denote the isotopy image, and let \( e_L \in Q \) be the left identity of \( Q \). 
+    
+    Let \( a \) be a fixed point of \( \phi \) from the assumption, and let \( b \) be a non-fixed point of \( \phi \) (we know it must exist since by assumption \( \phi \neq \Id \)).
+
+    The isotopy property says that \( \pi(x) *_{\tilde{Q}} \phi(y) = x *_Q y \), or equivalently, \( x *_{\tilde{Q}} y = \pi^{-1}(x) *_Q \phi^{-1}(y) \).
+
+    Then \( \pi(e_L) *_{\tilde{Q}} a = e_L *_Q \phi^{-1}(a) = e_L *_Q a = a \), and from the latin square property, one has that \( \pi(e_L) \) has to be the unique left identity of \( \tilde{Q} \) if it exists. However, \( \pi(e_L) *_{\tilde{Q}} b = e_L *_Q \phi^{-1}(b) = \phi^{-1}(b) \neq b \), so \( \pi(e_L) \) can not be a left identity, and \( \tilde{Q} \) therefore has no left identity.
+\end{proof}
+
+\begin{remark} \label{remark:left-identity-killed}
+    By \autoref{thm:left-identity-killed-construction} it follows that the construction in \autoref{construction:affine-automorphism-quasigroup} can never create a loop, since it can not have a left identity.
+
+    Furthermore, by \autoref{thm:associative-quasigroup-group} it follows that one can never get associativity for \( \tilde{Q} \), since that would imply it's a loop.
+\end{remark}
+
+\begin{remark}
+    In fact, a weaker version of \autoref{thm:left-identity-killed-construction} can be seen all the way back in \autoref{counterexample:construction-early-ab-destroy}, where by counterexample it is shown that there are permutations where the construction in \autoref{construction:affine-automorphism-quasigroup} would never preserve the abelian group structure.
+\end{remark}
