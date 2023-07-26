@@ -22,7 +22,7 @@
     \autoref{remark:ab-aaut-counterexample-notes}.
 \end{idea}
 
-\begin{idea}
+\begin{idea} \label{idea:code-improvements}
     The code can currently only generate up to \( 5 \times 5 \) latin squares. If one tries to generate \( 6 \times 6 \) latin squares it doesn't work. In order to improve the generation algorithm I have the following two ideas:
     
     Firstly, reduce the amount of latin squares that is needed to be generated:
@@ -36,7 +36,15 @@
 
     Secondly, optimizing the code directly:
 
-    TODO: Optimize the code further to save memory and computation time, maybe write to disk as it progresses in order to alleviate memory. Multi-thread the code to increase speed after memory issues are fixed.
+    Generating the \( 6 \times 6 \) latin squares doesn't finish on my computer due to insufficient RAM. So trying to optimize the code so that it uses less memory may be important. A known result is that every quasigroup is isotopic to a loop (with fixed identity, and without swapping labels). So therefore, one could generate every loop and then afterwards apply every isotopy to every loop in order to get every possible quasigroup. In this way, the code might not run faster, but the memory load could probably be reduced.
+
+    The code could maybe also be multi threaded. Currently the code is only single-threaded.
+
+    The recursive generation of the latin squares could be changed to a iterative version, maybe that would save on memory.
+
+    There are also most likely other smarter and more efficient algorithms for generating the necessary latin squares. If one checks for associativity, maybe one could look at it like a property of a 3D group operation table. Maybe there is some symmetry on this 3D group operation table that implies associativity that would be faster to check?
+
+    Applying optimizations should come second to reducing the amount of latin squares that need to be generated, since the amount of latin squares explodes extremely quickly as the size increases. And although the amount of abelian groups also explodes, it does so much slower, and is therefore way more bearable to compute. Even without siginificant optimizations, my code can generate every \( 10 \times 10 \) abelian group latin square fairly quickly.
 \end{idea}
 
 \subsection{Crazy ideas}
@@ -48,22 +56,33 @@
 \end{idea}
 
 \begin{idea}
-    TODO: Maybe can use compounding knowledge in attack to get lots of values in the table for every value checked? i.e if have 3 different \( \phi^{-1}(x_i) \) values, can then check 2 choose 3 different \( x_i +_{\tilde{Q}} x_j  \) values.
+    Another crazy idea relates to the attacks. Could it be possible to use the compuonding knowledge gained from asking for different values of \( \phi(x_i) \). Let \( \tilde{Q} \) be the commutative quasigroup gained from \autoref{corollary:construction-symmetric}. Then it has binary operation \( a *_{\tilde{Q}} b = \phi(a) *_Q \phi(b) \). If one for example has asked for \( k \) different values og \( \phi^{-1}(x_i) \), then one could calculate \( k \) choose 2 different sums \( x_i *_{\tilde{Q}} x_j \), which is \( k(k - 1) \in o(k^2) \). Could one use this compounding knowledge to help with gaining enough useful information for an attack fast enough?
+\end{idea}
+
+\begin{idea}
+    Is it possible to use information theory code generating algorithms to make latin squares? If latin squares can make MDS-codes, then could one go the other way using Reed-Solomon codes?
 \end{idea}
 
 \subsection{Observations}
 
 \begin{idea}
-    TODO: Intersections of Aut of abelian groups. Always equal to one of them or just id?
-
+    It seems like given two abelian groups \( H, G \in \Ab(n) \), then \( \Aut(H) \cap \Aut(G) \) is either \( \Aut(H), \Aut(G) \) or \( \set{\Id} \). However, I've yet to prove this.
 \end{idea}
 
 \begin{idea}
-    TODO: Experiments imply AAut not preserved under isomorphism by the 5x5 example specifically between \( s_{44915} \) and \( s_{85427} \). but no proof.
+    Experiments imply that for two abelian groups \( H, G \in \Ab(n) \) where \( H \simeq G \), then \( \AAut(H) \neq \AAut(G) \). In the ``complete\_5.ods'' file, \( s_{44915} \) and \( s_{85427} \) do not have the same affine automorphisms. However, it is known that there is only one ismorphism class for abelian groups of order \( 5 \), so they must be isomorphic.
+
+    However, I've yet to prove the above statement algebraically. Might be usefull for context, verification and further ideas.
 \end{idea}
 
 \begin{idea} \label{idea:fingerprints}
-    TODO: Fingerprint and affine fingerprint, what is their deal?
+    I have looked into something that we called the ``automorphism fingerprint'' of different quasigroups. For a given \( Q \in \Quas(n) \), then this is \( \Aut(Q) \). Every generated table that I've made is sorted with regards to this ``fingerprint''. Have looked a bit into the relation between elements with the same automorphism fingerprint, but didn't find or test anything concrete for higher \( n \) than 3. For \( n = 3 \) it seems like quasigroups with the same fingerprint are related by a single flip of either row or colum or the transpose of each other, but not always.
+
+    I did not have time to look into the ``affine automorphism fingerprint'' of different quasigroups. They're arguably more important, since that is what the main conjecture and construction revolves around. If one can manage to find a correlation between elements with the same fingerprint, then it might be possible to only generate the latin squares that have different fingerprints, which could help a lot with \autoref{idea:code-improvements}. Maybe it could also show a way to create a new construction and help with \autoref{idea:improved-construction}.
+\end{idea}
+
+\begin{idea}
+    I found no significant results or observations when working with \( n \) a prime, a composite number, or a power of a prime (i.e. a vector space), except for that every group was abelian when \( n \) was prime. Shouldn't there be some additional structure found that are lost between the different cases? Could one exploit the structure for certain \( n \) in for example \autoref{idea:code-improvements}?
 \end{idea}
 
 \subsection{Future experiments}
@@ -81,5 +100,10 @@ There are some experiments that I've yet to run, but that seems interesting.
 \subsection{Maybe irrelevant stuff}
 
 \begin{idea}
-    TODO: Non-identity automorphism for every abelian group.
+    One result that I tried proving, but gave up halfway was the following:
+
+    For \( n \geq 3 \) for every \( G \in \Ab(n) \), then \( \Aut(G) \neq \set{\Id} \). 
+    
+    It seems very close to be true, but I didn't manage to show that and gave up, because it seemed irrelevant for what I was trying to accomplish.
+    % TODO: write the half-finished proof?
 \end{idea}
