@@ -23,9 +23,18 @@
 \end{idea}
 
 \begin{idea}
-    The code can currently only generate up to \( 5 \times 5 \) latin squares. If one tries to generate \( 6 \times 6 \) latin squares it doesn't work. In order to improve the generation algorithm I have the following ideas:
+    The code can currently only generate up to \( 5 \times 5 \) latin squares. If one tries to generate \( 6 \times 6 \) latin squares it doesn't work. In order to improve the generation algorithm I have the following two ideas:
+    
+    Firstly, reduce the amount of latin squares that is needed to be generated:
 
-    TODO: Only generate the relevant latin squares in the appropriate ``class''. Something with fingerprint? Reduced form? Abelian groups with fixed identity? Generate all latin squares from that class?
+    By finding a certain ``class'' of latin squares that can be used to test and classify a result, one would only need to generate those in order to test the result. For finding a quasigroup where a permutation is an affine automorphism, perhaps only one of the representatives with a certain affine fingerprint (\autoref{idea:fingerprints}) need to be generated. How to do that efficiently, I do not know. 
+    
+    % TODO: Maybe rewrite
+    This could further be whittled down if one for example knew that there always was a loop where a map was an affine automorphism, so one only needed to generate all the loops with different fingerprint, etc... Or maybe one only needed to generate every abelian group and then permute the rows/columns/elements in a certain way to get the rest (permuting rows/columns/elements is applying an isotopy).
+    
+    Best case scenario is one only has to generate some of the abelian groups with fixed identity, and then applying permutations or some isotopies to them in order to get the rest that one need to test (perhaps the isotopies can depend on the context, i.e. what is being tested.). My code can generate every abelian group with fixed identity up to order \( 10 \) pretty quickly, that might be useful.
+
+    Secondly, optimizing the code directly:
 
     TODO: Optimize the code further to save memory and computation time, maybe write to disk as it progresses in order to alleviate memory. Multi-thread the code to increase speed after memory issues are fixed.
 \end{idea}
@@ -53,7 +62,7 @@
     TODO: Experiments imply AAut not preserved under isomorphism by the 5x5 example specifically between \( s_{44915} \) and \( s_{85427} \). but no proof.
 \end{idea}
 
-\begin{idea}
+\begin{idea} \label{idea:fingerprints}
     TODO: Fingerprint and affine fingerprint, what is their deal?
 \end{idea}
 
