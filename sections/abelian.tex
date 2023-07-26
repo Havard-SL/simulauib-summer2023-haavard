@@ -1,3 +1,5 @@
+\subsection{Initial definitions and results}
+
 \begin{definition}
     Let \( n \in \Nb \), then \( \Ab(n) = \set{ \text{All Abelian Groups over the elements } [n]} \).
 \end{definition}
@@ -131,30 +133,6 @@
     From \autoref{thm:conjugacy-isomorphism} and \autoref{thm:conjugacy-automorphism} one has that taking any Abelian group \( G \) over \( [n] \) with identity element \( e \in [n] \), and setting \( \phi = (0, e) \), one gets that any automorphism over \( G \) can be ``transformed'' to an automorphism over \( (i, 0)(G) \) where \( 0 \) is the identity, and vice versa. Therefore one only need to look at the automorphisms of abelian groups where \( 0 \) is a fixed identity to look for classifications of permutation as automorphisms.
 \end{remark}
 
-\begin{theorem}
-    Let \( S \) be a set with a closed binary operation \( *_S \) that is
-    \begin{itemize}
-        \item associative, and
-        \item commutative, and
-        \item where for any \( a \in S \), the map \( x \mapsto x *_S a \) is a bijection,
-    \end{itemize}
-    has an identity element. And is therefore an Abelian group.
-\end{theorem}
-\begin{proof}[Early proof]
-    Let \( a \) be any element in the group. Since \( a + x \) is a bijection, there exist a \( y \) such that \( a + y = a \). Want to prove that this \( y \) is in fact an identity element for the binary operation.
-
-    Assume \( b + y = z\) for some \( z \). adding \( a \) to both sides gives an equivalent equation: \( a + (b + y) = a + z \). Using associativity, this becomes: \( (a + b) + y = a + z \). Then from commutativity one gets \( (b + a) + y = a + z \). Using associativity again, one gets: \( b + (a + x) = a + z\). But since \( a + y = a \) by assumption, this reduces to: \( b + a = a + z \). But since the operation \( a + x\) is a bijection, it is then injective, and hence \( z = b \), which implies \( b + y = b\). Since the choice of \( b \) was arbitrary, \( y \) is the identity element.
-\end{proof}
-\begin{proof}[Late proof]
-    Follows from \autoref{thm:associative-quasigroup-group}.
-\end{proof}
-
-\begin{remark}
-    For every \( \phi \in \Sym(n) \), and for every \( H \in \Ab(n) \), if \( a = b +_H b \), then \( \phi(a) = \phi(b) +_{\phi(H)} \phi(b) \). This implies that any element on the diagonal of the group operation table stays on the diagonal of the group operation table, but permuted.
-
-    For example, consider the case when \( \phi(0) = 0 \), then one has that the conjugate must have the exact same amount of zeros on the diagonal.
-\end{remark}
-
 \begin{definition}
     Let \( \Ab_0(n) \) denote the subset of \( \Ab(n) \) where \( 0 \) is the identity of the abelian groups.
 \end{definition}
@@ -231,6 +209,32 @@
 
 \begin{remark}
     The property in \autoref{thm:ab-latin-square-property} is the \emph{latin square property}, which will be further studied later.
+\end{remark}
+
+\subsection{Results and counterexamples}
+
+\begin{theorem}
+    Let \( S \) be a set with a closed binary operation \( *_S \) that is
+    \begin{itemize}
+        \item associative, and
+        \item commutative, and
+        \item where for any \( a \in S \), the map \( x \mapsto x *_S a \) is a bijection,
+    \end{itemize}
+    has an identity element. And is therefore an Abelian group.
+\end{theorem}
+\begin{proof}[Early proof]
+    Let \( a \) be any element in the group. Since \( a + x \) is a bijection, there exist a \( y \) such that \( a + y = a \). Want to prove that this \( y \) is in fact an identity element for the binary operation.
+
+    Assume \( b + y = z\) for some \( z \). adding \( a \) to both sides gives an equivalent equation: \( a + (b + y) = a + z \). Using associativity, this becomes: \( (a + b) + y = a + z \). Then from commutativity one gets \( (b + a) + y = a + z \). Using associativity again, one gets: \( b + (a + x) = a + z\). But since \( a + y = a \) by assumption, this reduces to: \( b + a = a + z \). But since the operation \( a + x\) is a bijection, it is then injective, and hence \( z = b \), which implies \( b + y = b\). Since the choice of \( b \) was arbitrary, \( y \) is the identity element.
+\end{proof}
+\begin{proof}[Late proof]
+    Follows from \autoref{thm:associative-quasigroup-group}.
+\end{proof}
+
+\begin{remark}
+    For every \( \phi \in \Sym(n) \), and for every \( H \in \Ab(n) \), if \( a = b +_H b \), then \( \phi(a) = \phi(b) +_{\phi(H)} \phi(b) \). This implies that any element on the diagonal of the group operation table stays on the diagonal of the group operation table, but permuted.
+
+    For example, consider the case when \( \phi(0) = 0 \), then one has that the conjugate must have the exact same amount of zeros on the diagonal.
 \end{remark}
 
 \begin{counterexample}

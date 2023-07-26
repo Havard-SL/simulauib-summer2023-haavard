@@ -1,13 +1,41 @@
 \subsection{Improvements}
 
-TODO: Better construction 
-TODO: Improve upon the counterexample of AAut for ab. Experimentally it is not true for groups, but what about loops?
-TODO: Better code, maybe only generate the reduced forms, or one representative from each ``class'' whatever that is. Maybe something with fingerprints? Loops? Abelian?
+\begin{idea} \label{idea:improved-construction}
+    The current construction as defined in \autoref{construction:affine-automorphism-quasigroup} is limited in that one can only say that for any \( \phi \in \Sym(n) \) there is a \( \tilde{Q} \) with left identity or a \( \tilde{Q} \) that is commutative such that \( \phi \in \AAut(\tilde{Q}) \). One can not have both at the same time due to \autoref{remark:left-identity-killed}.
+
+    However, the current construction is limited to looking for affine automorphisms on the form \( \phi(x) = \Id(x) *_{\tilde{Q}} a \) for some \( a \in \tilde{Q} \). If it could be extended to find affine automorphisms on the form \( \phi(x) = \alpha(x) *_{\tilde{Q}} a \) for some \( \alpha \in \Aut(\tilde{Q}) \), then that would be a big improvement and could possibly avoid the consequences mentioned in \autoref{remark:left-identity-killed}.
+
+    As a summary, here is the current limitations that have been found:
+
+    For \( n = 5 \), for any \( \phi = (3, 4) \), it is \emph{not possible} to find a \( \tilde{Q} \) that is a group or better, such that \( \phi \in \AAut(\tilde{Q}) \), by \autoref{counterexample:ab-aaut}.
+
+    For any \( n \), for any \( \phi \in \Sym(n) \), \emph{using the current construction}, it is \emph{not possible} to find any \( \tilde{Q} \) that is a loop or better, such that \( \phi \in \AAut(\tilde{Q}) \), by \autoref{remark:left-identity-killed}.
+
+    Therefore I conjecture these two statements:
+
+    Firstly, a new and improved construction \emph{could} for any \( n \), for any \( \phi \in \Sym(n) \), find a \( \tilde{Q} \) that is at least a loop, such that \( \phi \in \AAut(\tilde{Q}) \).
+
+    Secondly, a new and improved constrocution \emph{could} for \emph{certain} \( n \), for any (or most likely, only \emph{certain}) \( \phi \in \Sym(n) \), find a \( \tilde{Q} \) that is an abelian group, such that \( \phi \in \AAut(\tilde{Q}) \).
+\end{idea}
+
+\begin{idea}
+    \autoref{remark:ab-aaut-counterexample-notes}.
+\end{idea}
+
+\begin{idea}
+    The code can currently only generate up to \( 5 \times 5 \) latin squares. If one tries to generate \( 6 \times 6 \) latin squares it doesn't work. In order to improve the generation algorithm I have the following ideas:
+
+    TODO: Only generate the relevant latin squares in the appropriate ``class''. Something with fingerprint? Reduced form? Abelian groups with fixed identity? Generate all latin squares from that class?
+
+    TODO: Optimize the code further to save memory and computation time, maybe write to disk as it progresses in order to alleviate memory. Multi-thread the code to increase speed after memory issues are fixed.
+\end{idea}
 
 \subsection{Crazy ideas}
 
 \begin{idea}
-    One of my more crazy ideas is to try and use the Eckmann-Hilton argument to show when a permutation is an automorphism, since from \autoref{thm:quasi-automorphism-iff-self-conjugate} would imply that \( *_Q \) and \( *_{\phi(\tilde{Q})} \) are equal if and only if \( \phi \in \Aut(Q) \).
+    One of my more crazy ideas is to try and use the Eckmann-Hilton argument to show when a permutation is an automorphism, since from \autoref{thm:quasi-automorphism-iff-self-conjugate} would imply that \( *_Q \) and \( *_{\phi(\tilde{Q})} \) are equal if and only if \( \phi \in \Aut(Q) \). 
+    
+    However, Eckmann-Hilton would imply that \( *_Q \) and \( *_{\tilde{Q}} \) are both associative and commutative, which would mean they're abelian groups from our structure. This most likely makes this idea not possible in the general case, but might be possible to apply in some special cases where we know there is some \( \tilde{Q} \) where the permutation is in \( \Aut(\tilde{Q}) \) or maybe \( \AAut(\tilde{Q}) \).
 \end{idea}
 
 \begin{idea}
@@ -16,16 +44,33 @@ TODO: Better code, maybe only generate the reduced forms, or one representative 
 
 \subsection{Observations}
 
-TODO: Intersections of Aut of abelian groups. Always equal to one of them or just id?
+\begin{idea}
+    TODO: Intersections of Aut of abelian groups. Always equal to one of them or just id?
 
-TODO: Experiments imply AAut not preserved under isomorphism by the 5x5 example specifically between \( s_{44915} \) and \( s_{85427} \). but no proof.
+\end{idea}
 
-TODO: Fingerprint and affine fingerprint, what is their deal?
+\begin{idea}
+    TODO: Experiments imply AAut not preserved under isomorphism by the 5x5 example specifically between \( s_{44915} \) and \( s_{85427} \). but no proof.
+\end{idea}
+
+\begin{idea}
+    TODO: Fingerprint and affine fingerprint, what is their deal?
+\end{idea}
 
 \subsection{Future experiments}
 
-TODO: Check if for every permutation, there is a loop where it is an AAut. Could connect with \autoref{remark:ab-aaut-counterexample-notes}.
+There are some experiments that I've yet to run, but that seems interesting.
+
+\begin{idea}
+    Firstly, want to verify the first conjecture in \autoref{idea:improved-construction} by checking for every permutation if there is a loop where it's in the \( \AAut \) of that loop. Maybe in the spreadsheet, one could add an additional row above the permutation where the best structure that permutation is \( \AAut \) in is shown.
+\end{idea}
+
+\begin{idea}
+    Secondly, want to improve the bounds that have been mentioned in the second conjecture in \autoref{idea:improved-construction}. For \( n = 2^k \), does the conjecture hold? For which \( \phi \in \Sym(n) \) does the conjecture hold? Does it hold for any weaker statements? And so on.
+\end{idea}
 
 \subsection{Maybe irrelevant stuff}
 
-TODO: Non-identity automorphism for every abelian group.
+\begin{idea}
+    TODO: Non-identity automorphism for every abelian group.
+\end{idea}
